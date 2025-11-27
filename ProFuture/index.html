@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProFuture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="overflow-x-hidden">
+
+    <header class="p-6 fixed w-full top-0 z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#home">
+             <img src="964e7afe-ef3a-4032-b37a-1d762b28ab13.png" alt="ProFuture Logo" class="h-12 w-auto">  
+        </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#servico" class="nav-link">serviço</a>
+                <a href="#diferencial" class="nav-link">diferencial</a>
+                <a href="#perfis" class="nav-link">perfis</a>
+                <a href="#planos" class="nav-link">planos</a>
+                <a href="#contato" class="nav-link">contato</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="#servico" class="block py-2 px-4 text-sm nav-link">serviço</a>
+            <a href="#diferencial" class="block py-2 px-4 text-sm nav-link">diferencial</a>
+            <a href="#perfis" class="block py-2 px-4 text-sm nav-link">perfis</a>
+            <a href="#planos" class="block py-2 px-4 text-sm nav-link">planos</a>
+            <a href="#contato" class="block py-2 px-4 text-sm nav-link">contato</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="min-h-screen flex items-center pt-20">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                    <div class="w-full lg:w-1/2 relative">
+                        <div class="vertical-line -left-8 md:-left-12"></div>
+                        <div class="border-4 border-white p-2 rounded-lg shadow-lg">
+                            <img src="image.png" class="rounded-md w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 text-left">
+                        <p class="text-lg md:text-xl leading-relaxed">
+                            A ProFuture facilita o acesso ao mercado de trabalho com cursos rápidos e acessíveis, conecta empresas e candidatos, oferece certificados digitais sustentáveis e mantém-se por meio de planos pagos e parcerias.
+                        </p>
+                        <a href="#servico" class="text-custom-blue font-semibold mt-6 inline-block tracking-widest text-sm">VER MAIS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servico" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center mb-12">
+                     <h2 class="section-title text-left text-3xl md:text-5xl mb-0">Serviços Oferecidos:</h2>
+                     <i class="fas fa-laptop-code text-4xl md:text-6xl text-gray-600 ml-auto"></i>
+                </div>
+               
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                     <div class="absolute top-0 right-0 h-full w-1 bg-custom-blue"></div>
+                    <div class="bg-custom-gray p-6 rounded-lg shadow-md text-black">
+                        <p>Cursos Online Rápidos e Acessíveis</p>
+                    </div>
+                     <div class="bg-custom-gray p-6 rounded-lg shadow-md text-black md:ml-[-4rem]">
+                        <p>Conexão entre Empresas e Candidatos</p>
+                    </div>
+                     <div class="bg-custom-gray p-6 rounded-lg shadow-md text-black">
+                        <p>Certificados Digitais Sustentáveis</p>
+                    </div>
+                     <div class="bg-custom-gray p-6 rounded-lg shadow-md text-black md:ml-[-4rem]">
+                        <p>Planos Pagos e Parcerias Estratégicas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diferencial" class="py-20">
+            <h2 class="section-title">Empresas</h2>
+            <div id="company-carousel" class="container mx-auto px-6 carousel-container">
+                <div class="carousel-track">
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg h-full">
+                            <h3 class="font-bold mb-4 text-lg">Equipe de Especialistas:</h3>
+                            <p>Contamos com profissionais experientes e apaixonados pelo que fazem, garantindo soluções de alta qualidade.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg h-full">
+                            <h3 class="font-bold mb-4 text-lg">Abordagem Personalizada:</h3>
+                            <p>Entendemos as necessidades de cada cliente para oferecer soluções sob medida que geram resultados reais.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg h-full">
+                            <h3 class="font-bold mb-4 text-lg">Foco em Inovação:</h3>
+                            <p>Estamos sempre em busca de novas tecnologias e métodos para otimizar nossos serviços e superar expectativas.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg h-full">
+                            <h3 class="font-bold mb-4 text-lg">Compromisso com o Sucesso do Cliente:</h3>
+                            <p>O seu sucesso é o nosso sucesso. Trabalhamos em parceria para alcançar os melhores resultados possíveis.</p>
+                        </div>
+                    </div>
+                     <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg h-full">
+                            <h3 class="font-bold mb-4 text-lg">Suporte Dedicado:</h3>
+                            <p>Oferecemos suporte contínuo para garantir que todas as suas dúvidas sejam resolvidas rapidamente.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-button prev"><i class="fas fa-chevron-left text-white"></i></button>
+                <button class="carousel-button next"><i class="fas fa-chevron-right text-white"></i></button>
+            </div>
+        </section>
+
+
+        <section id="perfis" class="py-20">
+            <h2 class="section-title">Perfis</h2>
+            <div class="border-t-2 border-custom-blue w-24 mx-auto mb-12"></div>
+            <div id="testimonial-carousel" class="container mx-auto px-6 carousel-container">
+                <div class="carousel-track">
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg text-center h-full flex flex-col items-center">
+                             <i class="fas fa-user-circle text-4xl mb-4"></i>
+                            <p class="font-semibold">@genidoval_22</p>
+                            <h3 class="font-bold text-custom-blue my-2">Fácil de usar e com designs incríveis</h3>
+                            <p class="text-sm">Desde o primeiro acesso, fiquei impressionado com a interface do site. Tudo é bem estruturado e fácil de navegar. Os designers são super talentosos e conseguiram traduzir exatamente o que eu queria. Excelente experiência!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg text-center h-full flex flex-col items-center">
+                            <i class="fas fa-user-circle text-4xl mb-4"></i>
+                            <p class="font-semibold">@nigel2264</p>
+                            <h3 class="font-bold text-custom-blue my-2">Incrível experiência!</h3>
+                            <p class="text-sm">O site oferece um serviço de altíssima qualidade a um preço justo. O atendimento foi rápido, atencioso e muito profissional. Os designs são diferenciados e cheios de personalidade. Fiquei muito satisfeito!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg text-center h-full flex flex-col items-center">
+                            <i class="fas fa-user-circle text-4xl mb-4"></i>
+                            <p class="font-semibold">@lety_vital</p>
+                            <h3 class="font-bold text-custom-blue my-2">Ótimo custo-benefício e qualidade impecável</h3>
+                            <p class="text-sm">Adorei a experiência! O site é bem organizado, com um portfólio inspirador e um processo de contratação fácil. O trabalho entregue foi além do que eu esperava, com um toque profissional e inovador. Voltarei com certeza!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item p-4">
+                        <div class="bg-custom-gray p-8 rounded-lg text-center h-full flex flex-col items-center">
+                            <i class="fas fa-user-circle text-4xl mb-4"></i>
+                            <p class="font-semibold">@ana2526_ty</p>
+                            <h3 class="font-bold text-custom-blue my-2">Atendimento excepcional e resultados surpreendentes</h3>
+                            <p class="text-sm">Desde o primeiro contato, fui muito bem atendido. A equipe é extremamente criativa e atenta aos detalhes. O site torna todo o processo muito fácil e intuitivo. Fiquei encantado com o resultado final!</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-button prev"><i class="fas fa-chevron-left text-white"></i></button>
+                <button class="carousel-button next"><i class="fas fa-chevron-right text-white"></i></button>
+            </div>
+        </section>
+
+        <!-- Plans Section -->
+        <section id="planos" class="py-20">
+            <h2 class="section-title">Escolha seu plano</h2>
+            <p class="text-center text-gray-400 mb-10 -mt-6">Cancele a qualquer momento.</p>
+            <div class="container mx-auto px-6 max-w-2xl">
+                
+                <button class="accordion w-full">
+                    <div>
+                        <span class="font-bold">Pro Anual</span>
+                        <span class="plan-popular">Mais Popular</span>
+                    </div>
+                    <span class="font-bold text-xl">R$7 <span class="text-base font-normal">/mês</span></span>
+                </button>
+                <div class="panel">
+                    <div class="panel-content">
+                        <span class="plan-save">Economize 70% com o plano anual</span>
+                        <p class="mt-4 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Acesso ilimitado a todos os cursos.</p>
+                        <p class="mt-2 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Certificados verificados para cada curso concluído.</p>
+                        <p class="mt-2 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Perfil destacado para recrutadores.</p>
+                        <p class="mt-2 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Acesso a webinars exclusivos com especialistas.</p>
+                        <button class="w-full bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 hover:bg-blue-700 transition-colors">Assine Agora</button>
+                    </div>
+                </div>
+
+                <button class="accordion w-full">
+                    <div>
+                        <span class="font-bold">Pro Semestral</span>
+                    </div>
+                    <span class="font-bold text-xl">R$11 <span class="text-base font-normal">/mês</span></span>
+                </button>
+                <div class="panel">
+                    <div class="panel-content">
+                         <p class="text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Acesso ilimitado a todos os cursos por 6 meses.</p>
+                         <p class="mt-2 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Certificados verificados ao concluir os cursos.</p>
+                         <p class="mt-2 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Perfil destacado para recrutadores.</p>
+                         <p class="mt-2 text-gray-400 line-through"><i class="fas fa-times text-red-500 mr-2"></i>Acesso a webinars exclusivos com especialistas.</p>
+                         <button class="w-full bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 hover:bg-blue-700 transition-colors">Assine Agora</button>
+                    </div>
+                </div>
+
+                <button class="accordion w-full">
+                    <div>
+                        <span class="font-bold">Pro Mensal</span>
+                    </div>
+                    <span class="font-bold text-xl">R$24 <span class="text-base font-normal">/mês</span></span>
+                </button>
+                <div class="panel">
+                    <div class="panel-content">
+                        <p class="text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Acesso a todos os cursos durante o mês.</p>
+                        <p class="mt-2 text-gray-700 font-medium"><i class="fas fa-check text-green-500 mr-2"></i>Certificados verificados.</p>
+                        <p class="mt-2 text-gray-400 line-through"><i class="fas fa-times text-red-500 mr-2"></i>Perfil destacado para recrutadores.</p>
+                        <p class="mt-2 text-gray-400 line-through"><i class="fas fa-times text-red-500 mr-2"></i>Acesso a webinars exclusivos com especialistas.</p>
+                        <button class="w-full bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 hover:bg-blue-700 transition-colors">Assine Agora</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contato" class="pt-20 pb-10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-playfair mb-6">Saiba Mais</h2>
+            <form class="flex justify-center max-w-md mx-auto mb-10">
+                <input type="email" placeholder="Your email address" class="w-full p-3 rounded-l-md text-black focus:outline-none">
+                <button type="submit" class="subscribe-btn text-white p-3 rounded-r-md">Subscribe</button>
+            </form>
+            <div class="flex justify-center space-x-6 mb-10">
+                <a href="#" class="social-icon bg-white text-black w-12 h-12 rounded-full flex items-center justify-center"><i class="fas fa-phone"></i></a>
+                <a href="#" class="social-icon bg-white text-black w-12 h-12 rounded-full flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon bg-white text-black w-12 h-12 rounded-full flex items-center justify-center"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon bg-white text-black w-12 h-12 rounded-full flex items-center justify-center"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon bg-white text-black w-12 h-12 rounded-full flex items-center justify-center"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+            <h3 class="text-3xl font-playfair mb-4">Contato</h3>
+            <p>email: ProFuture@gmail.com</p>
+            <p>CEL: 551195797-0004</p>
+        </div>
+         <div class="border-t-2 border-custom-blue w-full max-w-6xl mx-auto mt-12"></div>
+    </footer>
+
+    <!-- Chatbot Elements -->
+    <div id="chatbot-icon">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <div id="chatbot-window" class="">
+        <div class="chatbot-header">
+            <h3>ProFuture Assistente</h3>
+            <button id="close-chatbot">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+             <div class="chat-message bot-message">
+                Olá! Como posso ajudar você a conhecer a ProFuture hoje?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input-field" placeholder="Digite sua pergunta...">
+            <button id="chatbot-send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
