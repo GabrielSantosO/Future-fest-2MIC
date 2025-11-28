@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProFuture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Novas Fontes: Montserrat (Títulos) e Poppins (Texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="overflow-x-hidden">
+ <!-- User Dashboard Modal -->
+    <div id="user-dashboard" class="fixed inset-0 bg-black bg-opacity-95 z-[4000] hidden overflow-y-auto backdrop-blur-sm transition-opacity duration-300">
+        <div class="container mx-auto p-4 md:p-6 mt-12 md:mt-20">
+            <div class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
+                <h2 class="text-3xl font-heading font-bold text-custom-blue">Meu Perfil</h2>
+                <button id="close-dashboard" class="text-gray-400 hover:text-white text-2xl transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Sidebar / Basic Info -->
+                <div class="dashboard-sidebar p-8 rounded-2xl h-fit shadow-2xl">
+                    <div class="flex flex-col items-center">
+                        <!-- Clickable Avatar -->
+                        <div class="avatar-upload-container w-32 h-32 mb-6">
+                            <div id="dashboard-avatar-display" class="w-full h-full bg-gradient-to-br from-custom-blue to-blue-900 rounded-full flex items-center justify-center text-5xl font-bold shadow-lg border-4 border-gray-800 overflow-hidden">
+                                <span id="dashboard-avatar-initial" class="text-white">U</span>
+                                <img id="dashboard-avatar-img" src="" class="w-full h-full object-cover hidden">
+                            </div>
+                            <div class="avatar-overlay text-white text-sm font-semibold">
+                                <i class="fas fa-camera mr-2"></i> Alterar
+                            </div>
+                            <input type="file" id="avatar-input" accept="image/*" class="hidden">
+                        </div>
+
+                        <!-- Name Display -->
+                        <h3 id="dashboard-name" class="text-2xl font-bold font-heading mb-2">Usuário</h3>
+                        
+                        <p id="dashboard-email" class="text-sm opacity-70 mb-8">email@gmail.com</p>
+                        <button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm font-semibold flex items-center gap-2 border border-red-900/50 px-4 py-2 rounded-full hover:bg-red-900/20 transition-all">
+                            <i class="fas fa-sign-out-alt"></i> Sair da conta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- About Me -->
+                    <div class="dashboard-container p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-xl font-heading font-bold mb-4 flex items-center gap-3"><i class="fas fa-user-edit text-custom-blue"></i> Sobre Mim</h3>
+                        <textarea id="about-me-text" class="w-full bg-theme-primary text-theme-primary rounded-xl p-4 border border-theme focus:border-custom-blue focus:ring-1 focus:ring-custom-blue focus:outline-none h-40 resize-none transition-all placeholder-gray-500 login-input" placeholder="Conte um pouco sobre suas experiências, paixões e objetivos profissionais..."></textarea>
+                        <div class="flex justify-end mt-4">
+                            <button class="bg-custom-blue text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-600 transition-colors shadow-lg hover:shadow-blue-500/20">Salvar Alterações</button>
+                        </div>
+                    </div>
+
+                    <!-- Files -->
+                    <div class="dashboard-container p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-xl font-heading font-bold mb-6 flex items-center gap-3"><i class="fas fa-folder-open text-custom-blue"></i> Meus Arquivos</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Resume -->
+                            <div class="border-2 border-dashed border-theme rounded-xl p-8 text-center hover:border-custom-blue transition-all cursor-pointer relative group bg-theme-primary">
+                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10" id="resume-upload">
+                                <div class="bg-custom-blue rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-file-alt text-2xl text-white"></i>
+                                </div>
+                                <p class="font-bold mb-1">Currículo</p>
+                                <p class="text-xs opacity-70 group-hover:text-custom-blue transition-colors" id="resume-filename">Clique para anexar (PDF, DOCX)</p>
+                            </div>
+
+                            <!-- Diplomas -->
+                            <div class="border-2 border-dashed border-theme rounded-xl p-8 text-center hover:border-custom-blue transition-all cursor-pointer relative group bg-theme-primary">
+                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10" id="diploma-upload" multiple>
+                                <div class="bg-custom-blue rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-graduation-cap text-2xl text-white"></i>
+                                </div>
+                                <p class="font-bold mb-1">Diplomas</p>
+                                <p class="text-xs opacity-70 group-hover:text-custom-blue transition-colors" id="diploma-filename">Clique para anexar imagens ou PDF</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Companies Carousel -->
+                    <div class="dashboard-container p-8 rounded-2xl shadow-xl overflow-hidden">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <h3 class="text-xl font-heading font-bold flex items-center gap-3"><i class="fas fa-briefcase text-custom-blue"></i> Match Profissional</h3>
+                                <p class="text-sm opacity-70 mt-1">Empresas que combinam com o seu perfil.</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button id="match-prev" class="w-8 h-8 rounded-full bg-theme-secondary hover:bg-custom-blue flex items-center justify-center transition-colors"><i class="fas fa-chevron-left text-xs"></i></button>
+                                <button id="match-next" class="w-8 h-8 rounded-full bg-theme-secondary hover:bg-custom-blue flex items-center justify-center transition-colors"><i class="fas fa-chevron-right text-xs"></i></button>
+                            </div>
+                        </div>
+                        
+                        <!-- New Carousel Instance -->
+                        <div id="match-carousel" class="carousel-container relative">
+                            <div class="carousel-track flex transition-transform duration-500">
+                                <!-- Match Item 1 -->
+                                <div class="carousel-item p-2 w-full md:w-1/2">
+                                    <div class="bg-theme-secondary p-5 rounded-xl border border-theme hover:border-custom-blue transition-colors group">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-black text-xl shadow-lg"><i class="fas fa-rocket"></i></div>
+                                            <span class="bg-green-900/30 text-green-400 text-xs font-bold px-2 py-1 rounded border border-green-900">98% Match</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg group-hover:text-custom-blue transition-colors">TechStart Innovation</h4>
+                                        <p class="text-xs opacity-70 mb-4">Tecnologia • Desenvolvimento Web</p>
+                                        <div class="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                                            <div class="bg-gradient-to-r from-green-400 to-custom-blue h-1.5 rounded-full" style="width: 98%"></div>
+                                        </div>
+                                        <p class="text-xs opacity-60">Procuram perfis criativos como o seu.</p>
+                                    </div>
+                                </div>
+                                <!-- Match Item 2 -->
+                                <div class="carousel-item p-2 w-full md:w-1/2">
+                                    <div class="bg-theme-secondary p-5 rounded-xl border border-theme hover:border-custom-blue transition-colors group">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-black text-xl shadow-lg"><i class="fas fa-code"></i></div>
+                                            <span class="bg-green-900/30 text-green-400 text-xs font-bold px-2 py-1 rounded border border-green-900">92% Match</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg group-hover:text-custom-blue transition-colors">DevSolutions</h4>
+                                        <p class="text-xs opacity-70 mb-4">Software • Consultoria</p>
+                                        <div class="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                                            <div class="bg-gradient-to-r from-green-400 to-custom-blue h-1.5 rounded-full" style="width: 92%"></div>
+                                        </div>
+                                        <p class="text-xs opacity-60">Alinhado com suas habilidades técnicas.</p>
+                                    </div>
+                                </div>
+                                <!-- Match Item 3 -->
+                                <div class="carousel-item p-2 w-full md:w-1/2">
+                                    <div class="bg-theme-secondary p-5 rounded-xl border border-theme hover:border-custom-blue transition-colors group">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-black text-xl shadow-lg"><i class="fas fa-layer-group"></i></div>
+                                            <span class="bg-green-900/30 text-green-400 text-xs font-bold px-2 py-1 rounded border border-green-900">85% Match</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg group-hover:text-custom-blue transition-colors">DesignHub</h4>
+                                        <p class="text-xs opacity-70 mb-4">Design • UX/UI</p>
+                                        <div class="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                                            <div class="bg-gradient-to-r from-green-400 to-custom-blue h-1.5 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                        <p class="text-xs opacity-60">Compatível com seu portfólio.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Register Modal -->
+    <div id="login-modal">
+        <div id="login-form-container">
+            <button id="close-login">&times;</button>
+            
+            <!-- Login View -->
+            <div id="login-view">
+                <h2>Bem-vindo de volta</h2>
+                <p class="login-subtitle">Entre para acessar à sua conta</p>
+                
+                <input type="email" id="login-email" class="login-input" placeholder="Email (@gmail.com)">
+                <div id="login-email-error" class="error-message">Email inválido. Use @gmail.com</div>
+
+                <input type="password" id="login-password" class="login-input" placeholder="Palavra-passe">
+                
+                <button id="btn-login-submit" class="login-button">Entrar</button>
+                <div class="login-links">
+                    <a class="login-link">Esqueceu a senha?</a>
+                    <a id="link-to-register" class="login-link">Criar conta</a>
+                </div>
+            </div>
+
+            <!-- Register View (Hidden by default) -->
+            <div id="register-view" class="hidden-view">
+                <h2>Criar Conta</h2>
+                <p class="login-subtitle">Junte-se à ProFuture</p>
+
+                <input type="text" id="reg-name" class="login-input" placeholder="Nome e Sobrenome">
+                <div id="reg-name-error" class="error-message">Por favor, insira seu nome.</div>
+
+                <input type="email" id="reg-email" class="login-input" placeholder="Email (@gmail.com)">
+                <div id="reg-email-error" class="error-message">Email inválido. Use @gmail.com</div>
+
+                <input type="password" id="reg-password" class="login-input" placeholder="Palavra-passe">
+                
+                <!-- Requirements only show in Register View -->
+                <div id="password-requirements" class="password-requirements">
+                    <span id="req-length">• Mínimo 8 caracteres</span>
+                    <span id="req-upper">• Pelo menos 1 letra maiúscula</span>
+                    <span id="req-number">• Pelo menos 1 número</span>
+                    <span id="req-special">• Pelo menos 1 caractere especial (!@#$...)</span>
+                </div>
+
+                <button id="btn-register-submit" class="login-button">Registar</button>
+                <div class="login-links" style="justify-content: center;">
+                    <a id="link-to-login" class="login-link">Já tem conta? Entrar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main Site Content -->
+    <div id="main-site-content">
+        <!-- Header -->
+        <header class="p-4 md:p-6 fixed w-full top-0 z-50 bg-theme-header backdrop-blur-md shadow-lg border-b border-theme">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-4 md:gap-8">
+                    <a href="#home">
+                        <img src="964e7afe-ef3a-4032-b37a-1d762b28ab13.png" alt="ProFuture Logo" class="h-10 w-auto">
+                    </a>
+                    
+                    <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                        <a href="#servico" class="nav-link text-sm uppercase tracking-wider">serviço</a>
+                        <a href="#diferencial" class="nav-link text-sm uppercase tracking-wider">diferencial</a>
+                        <a href="#perfis" class="nav-link text-sm uppercase tracking-wider">perfis</a>
+                        <a href="#planos" class="nav-link text-sm uppercase tracking-wider">planos</a>
+                        <a href="#contato" class="nav-link text-sm uppercase tracking-wider">contato</a>
+                        <!-- Login Button in Navbar -->
+                        <button id="nav-login-btn" class="nav-login-btn">LOGIN</button>
+                    </nav>
+                </div>
+
+                <!-- Parte de Usuário (User Profile) & Theme Toggle -->
+                <div class="flex items-center gap-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-toggle-btn" title="Alternar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+
+                    <div id="header-user-profile" class="user-profile hidden md:flex" style="display: none;">
+                        <div class="user-avatar border-theme">
+                            <span id="header-avatar-initial" class="text-white">U</span>
+                            <img id="header-avatar-img" src="" class="hidden">
+                        </div>
+                        <span id="user-display-name" class="user-name">Usuário</span>
+                    </div>
+
+                    <button id="mobile-menu-button" class="md:hidden text-custom-blue transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-theme-header rounded-lg p-4 absolute w-[90%] left-[5%] shadow-xl border border-theme">
+                <div class="flex items-center gap-3 mb-4 pb-4 border-b border-theme" id="mobile-user-section" style="display: none;">
+                    <div class="user-avatar w-8 h-8 text-sm">
+                        <span id="mobile-avatar-initial" class="text-white">U</span>
+                        <img id="mobile-avatar-img" src="" class="hidden">
+                    </div>
+                    <span id="mobile-user-name" class="user-name">Usuário</span>
+                </div>
+                <a href="#servico" class="block py-3 px-2 text-sm nav-link border-b border-theme">SERVIÇO</a>
+                <a href="#diferencial" class="block py-3 px-2 text-sm nav-link border-b border-theme">DIFERENCIAL</a>
+                <a href="#perfis" class="block py-3 px-2 text-sm nav-link border-b border-theme">PERFIS</a>
+                <a href="#planos" class="block py-3 px-2 text-sm nav-link border-b border-theme">PLANOS</a>
+                <a href="#contato" class="block py-3 px-2 text-sm nav-link border-b border-theme">CONTATO</a>
+                <a id="mobile-login-btn" class="block py-3 px-2 text-sm nav-link text-custom-blue font-bold">LOGIN</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section id="home" class="min-h-screen flex items-center pt-20">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                        <div class="w-full lg:w-1/2 relative">
+                            <div class="vertical-line -left-8 md:-left-12"></div>
+                            <div class="border-4 border-custom-blue p-2 rounded-lg shadow-lg transform hover:scale-[1.01] transition-transform duration-500">
+                                <img src="image.png" alt="imegem inicio" class="rounded-md w-full h-auto">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-1/2 text-left">
+                            <h1 class="font-heading text-4xl md:text-5xl font-bold mb-6 leading-tight text-theme-primary">Construindo o <span class="text-custom-blue">Futuro</span> Profissional</h1>
+                            <p class="text-lg opacity-80 leading-relaxed font-light">
+                                A ProFuture facilita o acesso ao mercado de trabalho com cursos rápidos e acessíveis, conecta empresas e candidatos, oferece certificados digitais sustentáveis e mantém-se por meio de planos pagos e parcerias.
+                            </p>
+                            <a href="#servico" class="bg-custom-blue text-white font-bold py-3 px-8 rounded-full mt-8 inline-block tracking-wide text-sm hover:bg-blue-600 transition-colors shadow-lg hover:shadow-blue-500/30">VER MAIS</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="servico" class="py-20">
+                <div class="container mx-auto px-6">
+                    <div class="flex items-center mb-16">
+                        <h2 class="section-title text-left text-3xl md:text-5xl mb-0">Serviços Oferecidos</h2>
+                        <i class="fas fa-laptop-code text-4xl md:text-6xl text-gray-500 ml-auto opacity-50"></i>
+                    </div>
+                
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                        <div class="absolute top-0 right-0 h-full w-1 bg-gradient-to-b from-custom-blue to-transparent opacity-50 hidden md:block"></div>
+                        
+                        <div class="bg-theme-secondary p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group">
+                            <i class="fas fa-graduation-cap text-custom-blue text-3xl mb-4 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-semibold text-lg font-heading">Cursos Online Rápidos e Acessíveis</p>
+                            <p class="text-sm mt-2 opacity-70">Aprenda novas habilidades em tempo recorde com nossa metodologia ágil.</p>
+                        </div>
+
+                        <div class="bg-theme-secondary p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 md:ml-[-2rem] group z-10 relative">
+                            <i class="fas fa-handshake text-custom-blue text-3xl mb-4 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-semibold text-lg font-heading">Conexão entre Empresas e Candidatos</p>
+                            <p class="text-sm mt-2 opacity-70">A ponte direta para sua próxima grande oportunidade de carreira.</p>
+                        </div>
+
+                        <div class="bg-theme-secondary p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group">
+                            <i class="fas fa-certificate text-custom-blue text-3xl mb-4 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-semibold text-lg font-heading">Certificados Digitais Sustentáveis</p>
+                            <p class="text-sm mt-2 opacity-70">Validação profissional segura, moderna e ecologicamente correta.</p>
+                        </div>
+
+                        <div class="bg-theme-secondary p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 md:ml-[-2rem] group z-10 relative">
+                            <i class="fas fa-chart-line text-custom-blue text-3xl mb-4 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-semibold text-lg font-heading">Planos Pagos e Parcerias Estratégicas</p>
+                            <p class="text-sm mt-2 opacity-70">Soluções premium para acelerar o crescimento do seu negócio.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Companies/Values Section -->
+            <section id="diferencial" class="py-20 bg-theme-primary">
+                <h2 class="section-title">Empresas</h2>
+                <div id="company-carousel" class="container mx-auto px-6 carousel-container">
+                    <div class="carousel-track">
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl h-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow">
+                                <div class="flex-grow">
+                                    <h3 class="font-heading font-bold mb-4 text-xl text-custom-blue">Equipe de Especialistas</h3>
+                                    <p class="opacity-80 leading-relaxed">Contamos com profissionais experientes e apaixonados pelo que fazem, garantindo soluções de alta qualidade.</p>
+                                </div>
+                                <button class="bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 w-full text-sm hover:bg-blue-700 transition-colors uppercase tracking-wider font-heading">Ver perfil da empresa</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl h-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow">
+                                <div class="flex-grow">
+                                    <h3 class="font-heading font-bold mb-4 text-xl text-custom-blue">Abordagem Personalizada</h3>
+                                    <p class="opacity-80 leading-relaxed">Entendemos as necessidades de cada cliente para oferecer soluções sob medida que geram resultados reais.</p>
+                                </div>
+                                <button class="bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 w-full text-sm hover:bg-blue-700 transition-colors uppercase tracking-wider font-heading">Ver perfil da empresa</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl h-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow">
+                                <div class="flex-grow">
+                                    <h3 class="font-heading font-bold mb-4 text-xl text-custom-blue">Foco em Inovação</h3>
+                                    <p class="opacity-80 leading-relaxed">Estamos sempre em busca de novas tecnologias e métodos para otimizar nossos serviços e superar expectativas.</p>
+                                </div>
+                                <button class="bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 w-full text-sm hover:bg-blue-700 transition-colors uppercase tracking-wider font-heading">Ver perfil da empresa</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl h-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow">
+                                <div class="flex-grow">
+                                    <h3 class="font-heading font-bold mb-4 text-xl text-custom-blue">Sucesso do Cliente</h3>
+                                    <p class="opacity-80 leading-relaxed">O seu sucesso é o nosso sucesso. Trabalhamos em parceria para alcançar os melhores resultados possíveis.</p>
+                                </div>
+                                <button class="bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 w-full text-sm hover:bg-blue-700 transition-colors uppercase tracking-wider font-heading">Ver perfil da empresa</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl h-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow">
+                                <div class="flex-grow">
+                                    <h3 class="font-heading font-bold mb-4 text-xl text-custom-blue">Suporte Dedicado</h3>
+                                    <p class="opacity-80 leading-relaxed">Oferecemos suporte contínuo para garantir que todas as suas dúvidas sejam resolvidas rapidamente.</p>
+                                </div>
+                                <button class="bg-custom-blue text-white font-bold py-3 px-4 rounded-lg mt-6 w-full text-sm hover:bg-blue-700 transition-colors uppercase tracking-wider font-heading">Ver perfil da empresa</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-button prev"><i class="fas fa-chevron-left text-white"></i></button>
+                    <button class="carousel-button next"><i class="fas fa-chevron-right text-white"></i></button>
+                </div>
+            </section>
+
+            <!-- Profiles/Testimonials Section -->
+            <section id="perfis" class="py-20">
+                <h2 class="section-title">O que dizem sobre nós</h2>
+                <div class="border-t-2 border-custom-blue w-24 mx-auto mb-16 opacity-50"></div>
+                <div id="testimonial-carousel" class="container mx-auto px-6 carousel-container">
+                    <div class="carousel-track">
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl text-center h-full flex flex-col items-center shadow-lg relative pt-12">
+                                <div class="absolute top-[-2rem] bg-custom-blue p-4 rounded-full shadow-lg">
+                                    <i class="fas fa-user text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-grow w-full">
+                                    <p class="font-heading font-bold text-lg mb-1">@genidoval_22</p>
+                                    <div class="text-yellow-500 text-xs mb-4">★★★★★</div>
+                                    <h3 class="font-heading font-bold text-custom-blue my-3 text-xl">Design Incrível</h3>
+                                    <p class="text-sm leading-relaxed italic opacity-80">"Desde o primeiro acesso, fiquei impressionado com a interface. Tudo é bem estruturado e fácil de navegar."</p>
+                                </div>
+                                <button class="bg-transparent border-2 border-custom-blue text-custom-blue font-bold py-2 px-6 rounded-full mt-6 w-full text-sm hover:bg-custom-blue hover:text-white transition-all font-heading">Ver perfil</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl text-center h-full flex flex-col items-center shadow-lg relative pt-12">
+                                <div class="absolute top-[-2rem] bg-custom-blue p-4 rounded-full shadow-lg">
+                                    <i class="fas fa-user text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-grow w-full">
+                                    <p class="font-heading font-bold text-lg mb-1">@nigel2264</p>
+                                    <div class="text-yellow-500 text-xs mb-4">★★★★★</div>
+                                    <h3 class="font-heading font-bold text-custom-blue my-3 text-xl">Incrível experiência!</h3>
+                                    <p class="text-sm leading-relaxed italic opacity-80">"O site oferece um serviço de altíssima qualidade a um preço justo. O atendimento foi rápido e atencioso."</p>
+                                </div>
+                                <button class="bg-transparent border-2 border-custom-blue text-custom-blue font-bold py-2 px-6 rounded-full mt-6 w-full text-sm hover:bg-custom-blue hover:text-white transition-all font-heading">Ver perfil</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl text-center h-full flex flex-col items-center shadow-lg relative pt-12">
+                                <div class="absolute top-[-2rem] bg-custom-blue p-4 rounded-full shadow-lg">
+                                    <i class="fas fa-user text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-grow w-full">
+                                    <p class="font-heading font-bold text-lg mb-1">@lety_vital</p>
+                                    <div class="text-yellow-500 text-xs mb-4">★★★★★</div>
+                                    <h3 class="font-heading font-bold text-custom-blue my-3 text-xl">Qualidade impecável</h3>
+                                    <p class="text-sm leading-relaxed italic opacity-80">"O trabalho entregue foi além do que eu esperava, com um toque profissional e inovador. Voltarei com certeza!"</p>
+                                </div>
+                                <button class="bg-transparent border-2 border-custom-blue text-custom-blue font-bold py-2 px-6 rounded-full mt-6 w-full text-sm hover:bg-custom-blue hover:text-white transition-all font-heading">Ver perfil</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4">
+                            <div class="bg-theme-secondary p-8 rounded-xl text-center h-full flex flex-col items-center shadow-lg relative pt-12">
+                                <div class="absolute top-[-2rem] bg-custom-blue p-4 rounded-full shadow-lg">
+                                    <i class="fas fa-user text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-grow w-full">
+                                    <p class="font-heading font-bold text-lg mb-1">@ana2526_ty</p>
+                                    <div class="text-yellow-500 text-xs mb-4">★★★★★</div>
+                                    <h3 class="font-heading font-bold text-custom-blue my-3 text-xl">Resultados Reais</h3>
+                                    <p class="text-sm leading-relaxed italic opacity-80">"A equipe é extremamente criativa e atenta aos detalhes. O site torna todo o processo muito fácil e intuitivo."</p>
+                                </div>
+                                <button class="bg-transparent border-2 border-custom-blue text-custom-blue font-bold py-2 px-6 rounded-full mt-6 w-full text-sm hover:bg-custom-blue hover:text-white transition-all font-heading">Ver perfil</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-button prev"><i class="fas fa-chevron-left text-white"></i></button>
+                    <button class="carousel-button next"><i class="fas fa-chevron-right text-white"></i></button>
+                </div>
+            </section>
+
+            <!-- Plans Section -->
+            <section id="planos" class="py-20 bg-theme-primary">
+                <h2 class="section-title">Escolha seu plano</h2>
+                <p class="text-center opacity-70 mb-12 -mt-6 font-light">Flexibilidade total. Cancele a qualquer momento.</p>
+                <div class="container mx-auto px-6 max-w-3xl">
+                    
+                    <button class="accordion w-full shadow-md">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex items-center">
+                                <span class="font-heading font-bold text-lg">Pro Anual</span>
+                                <span class="plan-popular ml-3 bg-custom-blue text-white text-xs px-2 py-1 rounded-full uppercase tracking-wide">Mais Popular</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-heading font-bold text-xl text-custom-blue">R$19,90 <span class="text-sm font-normal opacity-70">/mês</span></span>
+                                <div class="text-xs opacity-60 font-normal mt-1">Total de R$ 238,80 por ano</div>
+                            </div>
+                        </div>
+                    </button>
+                    <div class="panel">
+                        <div class="panel-content">
+                            <span class="plan-save bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold mb-4 inline-block">Economize 30%</span>
+                            <p class="mt-4 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Acesso ilimitado a todos os cursos.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Certificados verificados.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Perfil destacado para recrutadores.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Mentoria de carreira mensal.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Acesso offline ao conteúdo.</p>
+                            <button class="w-full bg-custom-blue text-white font-heading font-bold py-4 px-4 rounded-xl mt-8 hover:bg-blue-700 transition-colors shadow-lg">Assinar Agora</button>
+                        </div>
+                    </div>
+
+                    <button class="accordion w-full shadow-md mt-4">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex items-center">
+                                <span class="font-heading font-bold text-lg">Pro Semestral</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-heading font-bold text-xl text-custom-blue">R$24,90 <span class="text-sm font-normal opacity-70">/mês</span></span>
+                                <div class="text-xs opacity-60 font-normal mt-1">Total de R$ 149,40 por semestre</div>
+                            </div>
+                        </div>
+                    </button>
+                    <div class="panel">
+                        <div class="panel-content">
+                            <p class="font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Acesso ilimitado por 6 meses.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Certificados verificados.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Perfil com destaque básico.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Suporte prioritário.</p>
+                            <p class="mt-3 opacity-50 line-through flex items-center"><i class="fas fa-times-circle text-gray-400 mr-3"></i>Mentoria de carreira mensal.</p>
+                            <button class="w-full bg-custom-blue text-white font-heading font-bold py-4 px-4 rounded-xl mt-8 hover:bg-blue-700 transition-colors shadow-lg">Assinar Agora</button>
+                        </div>
+                    </div>
+
+                    <button class="accordion w-full shadow-md mt-4">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex items-center">
+                                <span class="font-heading font-bold text-lg">Pro Mensal</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="font-heading font-bold text-xl text-custom-blue">R$29,90 <span class="text-sm font-normal opacity-70">/mês</span></span>
+                                <div class="text-xs opacity-60 font-normal mt-1">Cobrança recorrente mensal</div>
+                            </div>
+                        </div>
+                    </button>
+                    <div class="panel">
+                        <div class="panel-content">
+                            <p class="font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Acesso completo por 30 dias.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Certificados verificados.</p>
+                            <p class="mt-3 font-medium flex items-center"><i class="fas fa-check-circle text-custom-blue mr-3"></i>Suporte padrão.</p>
+                            <p class="mt-3 opacity-50 line-through flex items-center"><i class="fas fa-times-circle text-gray-400 mr-3"></i>Perfil destacado.</p>
+                            <p class="mt-3 opacity-50 line-through flex items-center"><i class="fas fa-times-circle text-gray-400 mr-3"></i>Acesso offline.</p>
+                            <button class="w-full bg-custom-blue text-white font-heading font-bold py-4 px-4 rounded-xl mt-8 hover:bg-blue-700 transition-colors shadow-lg">Assinar Agora</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer id="contato" class="pt-20 pb-10 bg-theme-footer border-t border-theme">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-heading font-bold mb-8">Fique por dentro</h2>
+                <form class="flex justify-center max-w-md mx-auto mb-12 items-stretch"> <!-- Added items-stretch -->
+                    <input type="email" placeholder="Seu melhor email" class="w-full p-4 rounded-l-lg bg-theme-primary text-theme-primary border border-theme focus:outline-none focus:ring-2 focus:ring-custom-blue font-sans placeholder-gray-500 login-input">
+                    <button type="submit" class="subscribe-btn text-white px-6 py-4 rounded-r-lg font-heading font-bold uppercase tracking-wider text-sm bg-custom-blue hover:bg-blue-700 flex items-center justify-center">Assinar</button> <!-- Added py-4 and flex utils -->
+                </form>
+                <div class="flex justify-center space-x-6 mb-12">
+                    <a href="#" class="social-icon bg-theme-secondary text-custom-blue hover:bg-custom-blue hover:text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"><i class="fas fa-phone"></i></a>
+                    <a href="#" class="social-icon bg-theme-secondary text-custom-blue hover:bg-custom-blue hover:text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon bg-theme-secondary text-custom-blue hover:bg-custom-blue hover:text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon bg-theme-secondary text-custom-blue hover:bg-custom-blue hover:text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon bg-theme-secondary text-custom-blue hover:bg-custom-blue hover:text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+                <div class="text-sm opacity-80">
+                    <h3 class="text-xl font-heading mb-4 font-bold">Contato</h3>
+                    <p class="mb-2">email: <span class="text-custom-blue">ProFuture@gmail.com</span></p>
+                    <p>CEL: <span class="">551195797-0004</span></p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 w-full max-w-6xl mx-auto mt-12 pt-8 text-center text-xs opacity-60">
+                &copy; 2024 ProFuture. Todos os direitos reservados.
+            </div>
+        </footer>
+
+        <!-- Chatbot Elements -->
+        <div id="chatbot-icon">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+
+        <div id="chatbot-window" class="">
+            <div class="chatbot-header">
+                <h3>ProFuture Assistente</h3>
+                <button id="close-chatbot">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-message bot-message">
+                    Olá! Como posso ajudar você a conhecer a ProFuture hoje?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input-field" placeholder="Digite sua pergunta...">
+                <button id="chatbot-send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
